@@ -1,6 +1,26 @@
 var http = require('http');
 var parse = require('url').parse;
- 
+var mongoose = require('mongoose');
+
+var db = mongoose.connection;
+
+db.on('error', console.error);
+
+db.once('open', function() {
+
+
+});
+
+mongoose.connect('mongodb://localhost/test');
+
+    var shortenerSchema = new mongoose.Schema({
+        m_long_url: { type: String }
+        , m_short_url: String
+        , m_hash_key: String
+    });
+
+
+var ShortUrl = mongoose.model('ShortUrl', shortenerSchema);
 var SERVER = '127.0.0.1';
 var PORT = 8080;
  
@@ -33,6 +53,16 @@ var srv = http.createServer(function(req, res) {
                 short_to_url[short_url] = param.query.url;
                 id++;
             }
+            var s_url = new ShortUrl({
+               m_long_url: param.query.url
+             , m_short_url: short_url
+            });
+
+             s_url.save(function(err, thor) {
+              if (err) return console.error(err);
+                console.dir(s_url);
+             });
+
             res.writeHead(200, {'Content-Type': 'text/html'});
             short_url_string = 'http://' + SERVER + ':' + PORT + 
                                '/' + short_url;
