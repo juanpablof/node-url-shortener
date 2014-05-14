@@ -1,33 +1,24 @@
 var http = require('http');
 var parse = require('url').parse;
 var mongoose = require('mongoose');
-
 var db = mongoose.connection;
 
 db.on('error', console.error);
-
-db.once('open', function() {
-
-
-});
+db.once('open', function() {});
 
 mongoose.connect('mongodb://localhost/test');
 
-    var shortenerSchema = new mongoose.Schema({
-        m_long_url: { type: String }
-        , m_short_url: String
-        , m_hash_key: String
-    });
-
-
+var shortenerSchema = new mongoose.Schema({
+    m_long_url: { type: String }
+    , m_short_url: String
+    , m_hash_key: String
+});
 var ShortUrl = mongoose.model('ShortUrl', shortenerSchema);
 var SERVER = '127.0.0.1';
 var PORT = 8080;
- 
 var id = 0; 
 var url_to_index = new Array();
 var short_to_url = new Array();
- 
 var CHARS = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHUJKLMNOPQRSTUVWXYZ';
  
 function num_to_base62(n) {
