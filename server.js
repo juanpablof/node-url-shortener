@@ -11,6 +11,7 @@ mongoose.connect('mongodb://localhost/urls'); // connect to our database
 // configure app to use bodyParser()
 // this will let us get the data from a POST (later on)
 app.use(bodyParser());
+app.engine('.html', require('jade').__express);
 
 var iteration = 0; // just for now
 var CHARS = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHUJKLMNOPQRSTUVWXYZ';
@@ -57,8 +58,8 @@ router.route('/api/short').get(function(req, res) {
 
 // GET / redirects to home page (under construction)
 // ----------------------------------------------------
-router.get('/', function(req, res) {
-	res.json({ message: 'Home page will be here!' });   
+router.get('/', function(req, res) {   
+	res.sendfile('index.html')
 });
 
 // GET /:key redirects back to long_url 

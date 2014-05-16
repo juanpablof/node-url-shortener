@@ -1,0 +1,202 @@
+<html>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+<script type="text/javascript">
+    function submit(){
+         var result = null;
+         var query = $("#long_url").val();
+         var encoded = encodeURIComponent(query);
+         var scriptUrl = 'http://localhost:8091/r/s?u='+encoded;
+         $.ajax({
+            url: scriptUrl,
+            type: 'get',
+            dataType: 'html',
+            async: false,
+            success: function(data) {
+                result = data;
+            } 
+         });
+         $('#short_url').val(result);
+    };
+    
+    function reset(){
+        $("#long_url").val('');
+        $('#short_url').val('');
+    };
+    
+    function resetLogin(){
+        $("#username").val('');
+        $('#password').val('');
+    };
+    
+    function login(){
+         var username_ = $('#username').val();
+         var password_ = $('#password').val();
+         var loginUrl = 'http://localhost:8091/api/v1/public/login';
+         $.ajax({
+            url: loginUrl,
+            type: 'post',
+            data: { username: username_, password: password_ },
+            dataType: 'application/json',
+            async: false,
+            success: function(data) {               
+                $('#login').css("display", "none");
+                $('#page').css("display", "block");
+            },
+            error: function(error){
+                $('#error-msg').text("Invalid user or credentials. Try again.");
+            }
+         });
+    };
+    
+</script>
+
+
+<style>
+.colorgraph {
+  height: 5px;
+  border-top: 0;
+  background: #B50043;
+  border-radius: 5px;
+ }
+.btn-warning { background-color: #B50043; }
+.btn-warning:hover { background-color: #7F002F; }
+
+.form-signin {
+  max-width: 280px;
+  margin: 60px auto 10px;
+
+  .form-signin-heading {
+    text-align: center;
+    font-weight: bold;
+    text-shadow: 0px 1px 2px #111;
+    color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .checkbox {
+      font-weight: normal;
+    }
+
+    .form-control {
+      position: relative;
+      font-size: 16px;
+      height: auto;
+      padding: 10px;
+        @include box-sizing(border-box);
+    }
+
+    input[type="text"] {
+      margin-bottom: -1px;
+    border-top: 1px solid #000;
+    border-right: 1px solid #000;
+    border-left: 1px solid #000;
+      border-radius: 6px 6px 0px 0px;     
+        
+        &:focus {
+      box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);      
+        }
+    }
+
+    input[type="password"] {
+    z-index: 2;
+      margin-bottom: 20px;
+    border-top: none;
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
+    border-left: 1px solid #000;
+    border-radius: 0px 0px 6px 6px;   
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0px 1px 0px 0px rgba(255,255,255,0.5);   
+
+        &:focus {
+      box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0px 1px 0px 0px rgba(255,255,255,0.5);       
+        }
+    }
+
+  .btn {
+    font-weight: bold;
+    text-shadow: 0px -1px 0px rgba(0,0,0,0.2);
+  }
+}
+
+p.sign-up {
+  color: #000;
+  font-size: 12px;
+}
+
+form .line {
+    margin-bottom: 10px;
+}
+
+form .large-line {
+    margin-bottom: 35px;
+}
+
+
+</style>
+
+<body>
+    <div id="login">
+        <div class="container">
+            <form class="form-signin" onsubmit="false" method="post">       
+              <div align="center">
+                <img src="logo1.jpg"></img>
+                 <h2 class="form-signin-heading">URL Encoder <small>(beta)</small></h2>
+              </div>
+              <div class="line">
+                <input type="text" class="form-control" id="username" name="username" placeholder="Email Address" required autofocus/>
+              </div>
+              <div class="line">
+                 <input type="password" class="form-control" id="password" name="password" placeholder="Password" required/>              
+              </div>
+              <div class="large-line">
+                 <div class="col-xs-6 col-md-6"><a href="" class="btn btn-warning btn-block btn-lg" onclick="login(); return false;">Log In</a></div>
+                 <div class="col-xs-6 col-md-6"><a href="" class="btn btn-warning btn-block btn-lg" onclick="resetLogin(); return false;">Reset</a></div>
+              </div>
+             <div class="large-line" id="error">
+                 <label id="error-msg" style="color:red;"></label>            
+              </div>
+             </form>
+        </div>
+    </div>
+    <div id="page" style="display:none;">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                    <div align="center">
+                        <img src="logo1.jpg"></img>
+                    </div>
+                    <form role="form" onsubmit="false">
+                        <h2>London Hydro <small>URL Encoder (beta)</small></h2>
+                        <hr class="colorgraph">
+                        <div class="form-group">
+                            <input type="text" name="long" id="long_url" class="form-control input-lg" placeholder="Long URL" tabindex="3">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="short" id="short_url" class="form-control input-lg" placeholder="Short URL" tabindex="4" readonly>
+                        </div>
+                        <!-- div class="row">
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                                <span class="button-checkbox">
+                                    <label type="button" class="btn" data-color="info" tabindex="7">I Agree</label>
+                                    <input type="checkbox" name="t_and_c" id="t_and_c" value="1">
+                                </span>
+                            </div>
+                            <div class="col-xs-9 col-sm-9 col-md-9">
+                                 By clicking <strong class="label label-primary">Register</strong>, you agree to the <a href="#" data-toggle="modal" data-target="#t_and_c_m">Terms and Conditions</a> set out by this site, including our Cookie Use.
+                            </div>
+                        </div-->
+                        
+                        <hr class="colorgraph">
+                        <div class="row">
+                            <div class="col-xs-6 col-md-6"><a href="" class="btn btn-warning btn-block btn-lg" onclick="submit(); return false;">Submit</a></div>
+                            <div class="col-xs-6 col-md-6"><a href="" class="btn btn-warning btn-block btn-lg" onclick="reset(); return false;">Reset</a></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
