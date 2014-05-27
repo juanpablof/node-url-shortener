@@ -59,7 +59,7 @@ router.route('/api/short').get(function(req, res) {
 // GET / redirects to home page (under construction)
 // ----------------------------------------------------
 router.get('/', function(req, res) {   
-	res.sendfile('index.html')
+	res.sendfile('short.html')
 });
 
 // GET /:key redirects back to long_url 
