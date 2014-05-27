@@ -52,7 +52,7 @@ router.route('/api/short').get(function(req, res) {
 
 			// crappy response containing the url - will improve later.
 			res.writeHead(200, {'Content-Type': 'text/html'});
-			res.end('Your short url is: <a href="' + shortUrl +'">' + shortUrl + '</a>');
+			res.end(shortUrl);
 	}
 });
 

@@ -1,0 +1,69 @@
+<html>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+<script type="text/javascript">
+    function submit(){
+         var result = null;
+         var query = $("#long_url").val();
+         var encoded = encodeURIComponent(query);
+         var scriptUrl = 'http://localhost:8080/api/short?url='+encoded;
+         $.ajax({
+            url: scriptUrl,
+            type: 'get',
+            dataType: 'html',
+            async: false,
+            success: function(data) {
+                result = data;
+            } 
+         });
+         $('#short_url').val(result);
+    };
+    
+    function reset(){
+        $("#long_url").val('');
+        $('#short_url').val('');
+    };
+</script>
+
+
+<style>
+.colorgraph {
+  height: 5px;
+  border-top: 0;
+  background: #c4e17f;
+  border-radius: 5px;
+  background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+}
+</style>
+
+<body>
+      <div class="container">
+          <div class="row">
+              <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                  <div align="center">
+                      <img src="logo1.jpg"></img>
+                  </div>
+                  <form role="form" onsubmit="false">
+                      <h2>URL Shortener</h2>
+                      <hr class="colorgraph">
+                      <div class="form-group">
+                          <input type="text" name="long" id="long_url" class="form-control input-lg" placeholder="Long URL" tabindex="3">
+                      </div>
+                      <div class="form-group">
+                          <input type="text" name="short" id="short_url" class="form-control input-lg" placeholder="Short URL" tabindex="4" readonly>
+                      </div>
+                      <hr class="colorgraph">
+                      <div class="row">
+                          <div class="col-xs-6 col-md-6"><a href="" class="btn btn-primary btn-block btn-lg" onclick="submit(); return false;">Submit</a></div>
+                          <div class="col-xs-6 col-md-6"><a href="" class="btn btn-success btn-block btn-lg" onclick="reset(); return false;">Reset</a></div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </body>
+</html>
