@@ -1,5 +1,16 @@
-var shortener = angular.module('shortener.controllers', []);
+var shortener = angular.module('shortener', []);
 
-shortener.controller('ShortenerController', function($scope) {
-  
+shortener.service('ShortenerService', function($scope) {
+
+
+  	
+});
+
+shortener.controller('ShortenerController', function($scope, ShortenerService) {
+  	var init = function(){
+		console.log('here');
+  	};
+
+  	init();
+  	
 });
