@@ -11,7 +11,10 @@ mongoose.connect('mongodb://localhost/urls'); // connect to our database
 // configure app to use bodyParser()
 // this will let us get the data from a POST (later on)
 app.use(bodyParser());
+app.use("/css", express.static(__dirname + '/css'));
+app.use("/angular", express.static(__dirname + '/angular'));
 app.engine('.html', require('jade').__express);
+
 
 var iteration = 0; // just for now
 var CHARS = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHUJKLMNOPQRSTUVWXYZ';
@@ -22,7 +25,6 @@ var router = express.Router();              // get an instance of the express Ro
 // middleware to use for all requests (kinda request interceptor)
 router.use(function(req, res, next) {
 	// do logging
-	console.log('Request Filtered!');
 	next();
 });
 
