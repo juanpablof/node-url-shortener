@@ -22,7 +22,7 @@ shortener.controller('ShortenerController', function($scope, ShortenerService) {
 					$scope.shortUrl = response;
 			});	
   		}else{
-  			//error msg
+  			//error msg    
   		}
   	};
 
@@ -30,5 +30,4 @@ shortener.controller('ShortenerController', function($scope, ShortenerService) {
   		$scope.longUrl = '';
   		$scope.shortUrl = '';
   	};
-  	
 });
