@@ -1,7 +1,6 @@
-node-url-shortener
-==================
+## Node.js & MongoDB | url shortener
 
-Node.js & mongoDB - Basic url shortener.
+Installation:
 
 1) Install: node.  
 2) Install: mongoDB.   
